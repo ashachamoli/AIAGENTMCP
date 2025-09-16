@@ -1,14 +1,15 @@
 const { test, expect } = require('@playwright/test');
 const { ShopPage } = require('./shop.page');
 const { CartPage } = require('./cart.page');
+const { baseUrl, username, password } = require('./utils');
 
 test('Login, add iPhone X to cart, and checkout', async ({ page }) => {
   // Navigate to login page
-  await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+  await page.goto(baseUrl);
 
   // Fill in login credentials
-  await page.fill('#username', 'rahulshettyacademy');
-  await page.fill('#password', 'learning');
+  await page.fill('#username', username);
+  await page.fill('#password', password);
   await page.click('#signInBtn');
 
   // Wait for navigation to products page

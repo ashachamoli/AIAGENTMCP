@@ -9,7 +9,7 @@ module.exports = defineConfig({
     timeout: 5000
   },
   fullyParallel: true,
-  reporter: [['list'], ['html', { outputFolder: 'playwright-report' }]],
+  reporter: [['list'], ['html', { outputFolder: 'playwright-report' }], ['allure-playwright']],
   use: {
     baseURL: 'https://rahulshettyacademy.com',
     trace: 'on-first-retry',

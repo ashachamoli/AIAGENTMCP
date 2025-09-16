@@ -1,4 +1,6 @@
 const { test, expect } = require('@playwright/test');
+const { ShopPage } = require('./shop.page');
+const { CartPage } = require('./cart.page');
 
 test('Login, add iPhone X to cart, and checkout', async ({ page }) => {
   // Navigate to login page
@@ -12,30 +14,16 @@ test('Login, add iPhone X to cart, and checkout', async ({ page }) => {
   // Wait for navigation to products page
   await page.waitForURL('**/shop');
 
-  // Select iPhone X product and add to cart
   const productName = 'iphone X';
-  const cards = await page.$$('.card');
-  let found = false;
-  for (const card of cards) {
-    const title = await card.$eval('.card-title', el => el.textContent.trim());
-    if (title === productName) {
-      await card.click('text=Add');
-      found = true;
-      break;
-    }
-  }
-  expect(found).toBeTruthy();
+  const shopPage = new ShopPage(page);
+  const added = await shopPage.addProductToCart(productName);
+  expect(added).toBeTruthy();
 
-  // Go to cart
-  await page.click('a.nav-link.btn.btn-primary');
+  await shopPage.goToCheckout();
 
-  // Confirm product is in cart
-  const cartItem = page.locator('h4.media-heading', { hasText: productName });
-  await expect(cartItem).toBeVisible();
+  const cartPage = new CartPage(page);
+  const inCart = await cartPage.isProductInCart(productName);
+  expect(inCart).toBeTruthy();
 
-  // Checkout
-  await page.click('button.btn.btn-success');
-
-  // Confirm checkout page
-  await expect(page.locator('h2')).toHaveText('Thank you for your order!');
+  await cartPage.checkout();
 });

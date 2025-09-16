@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","6565","Login, add iPhone X to cart, and checkout","chromium","Tue Sep 16 11:24:52 EDT 2025","passed","Tue Sep 16 11:24:58 EDT 2025","","iphoneX-cart.spec.js","",""
